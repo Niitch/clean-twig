@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Clean Article{% endblock %}
+
+{% block body %}
+	<header class="masthead" style="background-image: url('{{ article.image }}')">
+		<div class="overlay"></div>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 col-md-10 mx-auto">
+					<div class="post-heading">
+						<h1>{{ article.title }}</h1>
+						<h2 class="subheading">{{ article.subtitle }}</h2>
+						<span class="meta">
+							Posted by <a href="#">{{ article.author }}</a>,
+							{{ article.createdAt }}</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+	<article>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 col-md-10 mx-auto">
+					<p>{{ article.body }}</p>
+				</div>
+			</div>
+		</div>
+	</article>
+
+	<hr>
+
+<div class="container">
+    <div class="row">
+        <h3 class="col-lg-8 col-md-10 mx-auto">{{ article.comments.count() }} Comments</h3>
+    </div>
+    
+    <!-- Comments Form -->
+    <div class="col-lg-8 col-md-10 mx-auto">
+        <div class="card my-4">
+            <h5 class="card-header">Leave a Comment:</h5>
+            <div class="card-body">
+                {{ form_start(commentForm, {attr: {'novalidate': 'novalidate'}}) }}
+                    {{ form_row(commentForm.name) }}
+                    {{ form_row(commentForm.email) }}
+                    {{ form_row(commentForm.comment) }}
+                    <button type="submit" class="btn btn-secondary">Submit</button>
+                {{ form_end(commentForm) }}
+            </div>
+        </div>
+    </div>
+
+    <!-- Comments -->
+    {% for comment in article.comments %}
+        <div class="row">
+            <div class="media mb-4 mt-4 col-lg-8 col-md-10 mx-auto">
+                <div class="media-body">
+                    <h5 class="mt-0">{{ comment.name }} <small>{{ comment.createdAt }}</small></h5>
+                    <blockquote>{{ comment.comment }}</blockquote>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

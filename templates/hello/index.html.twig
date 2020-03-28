@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+
+{% if user.name is not defined %}
+	T QUI TOI ?? BOUGE !!!
+{% else %}
+	<h1> {{ user.name }} est à {{ user.place }}</h1>
+{% endif %}
+<ul>
+	{% for val in user %}
+		<li>{{ val }}</li>
+	{% endfor %}
+</ul>
+
+</html>
